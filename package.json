@@ -2,9 +2,8 @@
   "name": "instaclone",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "scripts": {
-    "dev": "nodemon --exec node server.js",
+    "dev": "nodemon --exec ts-node src/server --ext ts,js",
     "migrate": "npx prisma migrate dev ",
     "studio": "npx prisma studio"
   },
@@ -13,7 +12,7 @@
     "url": "git+https://github.com/woori3104/insta_back.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "woori",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/woori3104/insta_back/issues"
@@ -22,13 +21,19 @@
   "dependencies": {
     "@prisma/client": "^2.26.0",
     "apollo-server": "^2.25.2",
-    "graphql": "^15.5.1"
+    "aws-sdk": "^2.943.0",
+    "bcrypt": "^5.0.1",
+    "dotenv": "^10.0.0",
+    "graphql": "^15.5.1",
+    "graphql-tools": "^7.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",
     "@babel/node": "^7.14.7",
     "@babel/preset-env": "^7.14.7",
     "nodemon": "^2.0.12",
-    "prisma": "^2.26.0"
+    "prisma": "^2.26.0",
+    "ts-node": "^10.1.0",
+    "typescript": "^4.3.5"
   }
 }
