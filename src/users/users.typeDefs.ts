@@ -11,7 +11,5 @@ export default gql`
     password: String!
     bio: String
     avatarurl: String
-    createdat: String!
-    updatedat: String!
   }
 `;
