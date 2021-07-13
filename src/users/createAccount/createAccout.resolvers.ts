@@ -1,18 +1,19 @@
 import * as bcrypt from "bcrypt";
-import { Resolvers } from "../../../types";
+import client from "../../client";
+import { uploadToS3 } from "../../shared/shared.utils";
 
-const resolvers: Resolvers = {
+export default {
   Mutation: {
     createAccount: async (
-      _,
-      { firstname, lastname, username, email, password, bio, avatarurl },
-      { client }
+      _: any,
+      { firstname, lastname, username, email, password, bio, avatarurl }: 
+      { firstname:string, lastname:string, username:string, email:string, password:string, bio:string, avatarurl:any}
     ) => {
       try {
         console.log("createAccount start");
-        let avatar;
+        let avatar: string;
         if (avatarurl) {
-            avatar = await uploadToS3(avatarurl, username, "avatars");
+          avatar = await uploadToS3(avatarurl, username, "avatars");
         }
         //check if username or email are already on DB.
         const existingUser = await client.user.findFirst({
@@ -32,7 +33,7 @@ const resolvers: Resolvers = {
         }
         // hash password
         const uglyPassword = await bcrypt.hash(password, 10);
-        return client.user.create({
+        await client.user.create({
           data: {
             username,
             email,
@@ -40,17 +41,15 @@ const resolvers: Resolvers = {
             lastname,
             password: uglyPassword,
             bio,
-            ...(avatar && { avatarURL: avatar }),
+            ...(avatar && { avatarurl: avatar }),
           },
         });
-      } catch (e) {
-        return e;
+        return {ok:true};
+      } catch (error) {
+        console.log(error);
+        return { ok: false, error: "Could not create account." };
       }
     },
   },
 };
-export default resolvers;
-function uploadToS3(avatarurl: any, username: any, arg2: string): any {
-    throw new Error("Function not implemented.");
-}
 
