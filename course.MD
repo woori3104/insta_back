@@ -152,3 +152,10 @@ npm i dotenv
 
 ## aws sdk for javascript
 
+## mutation and Query
+
+|     |  SQL/REST  | GraphQL    |
+| 조회 |  INSERT    | Query      |
+| 등록 |  INSERT    | Mutation   |
+| 갱신 |  UPDATE    | Mutation   |
+| 삭제 |  DELETE    | Mutation   |

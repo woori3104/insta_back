@@ -13,12 +13,11 @@ generator client {
 model user {
   id        Int      @id @default(autoincrement())
   firstname String
-  lastname  String?
   username  String   @unique
   email     String   @unique
   password  String
   bio       String?
-  avatarurl  String?  
-  createdat DateTime @default(now())
-  updatedat DateTime @updatedAt
+  avatarurl String?  
+  followers user[]    @relation("FollowRelation", references: [id])
+  following user[]    @relation("FollowRelation", references: [id])
 }
